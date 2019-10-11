@@ -2,11 +2,16 @@
 
 namespace Rvdlee\ZfImageOptimiser\Adapter;
 
-use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
+use Rvdlee\ZfImageOptimiser\Model\Image;
 
-class JpegOptim implements ImageOptimiserInterface
+class JpegOptim extends AbstractImageOptimiser
 {
-    public function optimize(string $imagePath)
+    /**
+     * @var string
+     */
+    protected $binaryPath = 'jpegoptim';
+
+    public function optimize(Image $image)
     {
         // TODO: Implement optimize() method.
     }

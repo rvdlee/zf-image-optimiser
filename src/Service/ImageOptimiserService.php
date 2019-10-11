@@ -5,8 +5,9 @@ namespace Rvdlee\ZfImageOptimiser\Service;
 use Exception;
 use Rvdlee\ZfImageOptimiser\Exception\InvalidArgumentException;
 use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
+use Rvdlee\ZfImageOptimiser\Model\Image;
 
-class ImageOptimiserService implements ImageOptimiserInterface
+class ImageOptimiserService
 {
     /**
      * @var array|ImageOptimiserInterface
@@ -43,7 +44,11 @@ class ImageOptimiserService implements ImageOptimiserInterface
         /** @var ImageOptimiserInterface $adapter */
         foreach ($this->getAdapters() as $adapter) {
             try {
-                $adapter->optimize($imagePath);
+                if ($adapter->canHandle($imagePath)) {
+                    $command = $adapter->optimize(new Image($imagePath));
+
+                    $output = shell_exec($command);
+                }
             } catch (Exception $exception) {
                 throw $exception;
             }

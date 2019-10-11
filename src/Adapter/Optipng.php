@@ -2,12 +2,17 @@
 
 namespace Rvdlee\ZfImageOptimiser\Adapter;
 
-use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
+use Rvdlee\ZfImageOptimiser\Model\Image;
 
-class Optipng implements ImageOptimiserInterface
+class Optipng extends AbstractImageOptimiser
 {
-    public function optimize(string $imagePath)
+    /**
+     * @var string
+     */
+    protected $binaryPath = 'optipng';
+
+    public function optimize(Image $image)
     {
-        // TODO: Implement optimize() method.
+        return sprintf('%s %s %s', $this->getBinaryPath(), implode(' ', $this->getBinaryOptions()), $image->getPath());
     }
 }

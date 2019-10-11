@@ -31,7 +31,7 @@ class Image
         }
 
         $this->setPath($path)
-             ->setSplFileInfo($path);
+             ->setSplFileInfo(new SplFileInfo($path));
     }
 
     /**

@@ -2,12 +2,17 @@
 
 namespace Rvdlee\ZfImageOptimiser\Adapter;
 
-use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
+use Rvdlee\ZfImageOptimiser\Model\Image;
 
-class Pngquant2 implements ImageOptimiserInterface
+class Pngquant2 extends AbstractImageOptimiser
 {
-    public function optimize(string $imagePath)
+    /**
+     * @var string
+     */
+    protected $binaryPath = 'pngquant';
+
+    public function optimize(Image $image)
     {
-        // TODO: Implement optimize() method.
+        return sprintf('%s %s %s', $this->getBinaryPath(), implode(' ', $this->getBinaryOptions()), $image->getPath());
     }
 }

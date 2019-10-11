@@ -27,17 +27,17 @@ class ImageOptimiserServiceFactory implements FactoryInterface
         /** @var array $config */
         $config = $container->get('config');
 
-        if ( ! isset($config['rvdlee']['zf-image-optimizer'])
+        if ( ! isset($config['rvdlee']['zf-image-optimiser'])
             || ! key_exists(
                 'enabled',
-                $config['rvdlee']['zf-image-optimizer']
+                $config['rvdlee']['zf-image-optimiser']
             )
         ) {
             throw new InvalidConfigurationException('We are missing configuration to make this code work.');
         }
 
-        foreach($config['rvdlee']['zf-image-optimizer']['enabled'] as $adapter) {
-            $adapter = $container->get($adapter);
+        foreach($config['rvdlee']['zf-image-optimiser']['enabled'] as $adapter) {
+            $adapters[] = $container->get($adapter);
         }
 
         return new ImageOptimiserService($adapters);

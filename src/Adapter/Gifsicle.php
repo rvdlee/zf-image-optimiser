@@ -2,9 +2,16 @@
 
 namespace Rvdlee\ZfImageOptimiser\Adapter;
 
+use Rvdlee\ZfImageOptimiser\Model\Image;
+
 class Gifsicle extends AbstractImageOptimiser
 {
-    public function optimize(string $imagePath)
+    /**
+     * @var string
+     */
+    protected $binaryPath = 'gifsicle';
+
+    public function optimize(Image $image)
     {
         // TODO: Implement optimize() method.
     }
