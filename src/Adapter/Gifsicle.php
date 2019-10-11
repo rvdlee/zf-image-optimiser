@@ -1,8 +1,8 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer\Adapter;
+namespace Rvdlee\ZfImageOptimiser\Adapter;
 
-class Gifsicle extends AbstractImageOptimizer
+class Gifsicle extends AbstractImageOptimiser
 {
     public function optimize(string $imagePath)
     {

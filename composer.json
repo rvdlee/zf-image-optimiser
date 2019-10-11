@@ -29,7 +29,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Rvdlee\\ZfImageOptimizer\\": "src/"
+      "Rvdlee\\ZfImageOptimiser\\": "src/"
     },
     "classmap": [
       "src/Module.php"
@@ -37,7 +37,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Rvdlee\\ZfImageOptimizer\\Test\\": "tests"
+      "Rvdlee\\ZfImageOptimiser\\Test\\": "tests"
     }
   }
 }

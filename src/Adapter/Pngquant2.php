@@ -1,10 +1,10 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer\Adapter;
+namespace Rvdlee\ZfImageOptimiser\Adapter;
 
-use Rvdlee\ZfImageOptimizer\Interfaces\ImageOptimizerInterface;
+use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
 
-class Pngquant2 implements ImageOptimizerInterface
+class Pngquant2 implements ImageOptimiserInterface
 {
     public function optimize(string $imagePath)
     {

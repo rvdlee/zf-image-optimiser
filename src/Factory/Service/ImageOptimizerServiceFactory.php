@@ -1,28 +1,28 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer\Factory\Service;
+namespace Rvdlee\ZfImageOptimiser\Factory\Service;
 
 use Interop\Container\ContainerInterface;
-use Rvdlee\ZfImageOptimizer\Exception\InvalidArgumentException;
-use Rvdlee\ZfImageOptimizer\Exception\InvalidConfigurationException;
-use Rvdlee\ZfImageOptimizer\Interfaces\ImageOptimizerInterface;
-use Rvdlee\ZfImageOptimizer\Service\ImageOptimizerService;
+use Rvdlee\ZfImageOptimiser\Exception\InvalidArgumentException;
+use Rvdlee\ZfImageOptimiser\Exception\InvalidConfigurationException;
+use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
+use Rvdlee\ZfImageOptimiser\Service\ImageOptimiserService;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ImageOptimizerServiceFactory implements FactoryInterface
+class ImageOptimiserServiceFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string             $requestedName
      * @param array|null         $options
      *
-     * @return object|ImageOptimizerService
+     * @return object|ImageOptimiserService
      * @throws InvalidConfigurationException
      * @throws InvalidArgumentException
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        /** @var array|ImageOptimizerInterface $adapters */
+        /** @var array|ImageOptimiserInterface $adapters */
         $adapters = [];
         /** @var array $config */
         $config = $container->get('config');
@@ -40,6 +40,6 @@ class ImageOptimizerServiceFactory implements FactoryInterface
             $adapter = $container->get($adapter);
         }
 
-        return new ImageOptimizerService($adapters);
+        return new ImageOptimiserService($adapters);
     }
 }

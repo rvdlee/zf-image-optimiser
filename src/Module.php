@@ -1,6 +1,6 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer;
+namespace Rvdlee\ZfImageOptimiser;
 
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 

@@ -1,30 +1,30 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer\Service;
+namespace Rvdlee\ZfImageOptimiser\Service;
 
 use Exception;
-use Rvdlee\ZfImageOptimizer\Exception\InvalidArgumentException;
-use Rvdlee\ZfImageOptimizer\Interfaces\ImageOptimizerInterface;
+use Rvdlee\ZfImageOptimiser\Exception\InvalidArgumentException;
+use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
 
-class ImageOptimizerService implements ImageOptimizerInterface
+class ImageOptimiserService implements ImageOptimiserInterface
 {
     /**
-     * @var array|ImageOptimizerInterface
+     * @var array|ImageOptimiserInterface
      */
     protected $adapters;
 
     /**
-     * @param array|ImageOptimizerInterface $adapters
+     * @param array|ImageOptimiserInterface $adapters
      *
      * @throws InvalidArgumentException
      */
     public function __construct(array $adapters)
     {
-        /** @var ImageOptimizerInterface $adapter */
+        /** @var ImageOptimiserInterface $adapter */
         foreach ($adapters as $adapter) {
-            if ( ! $adapter instanceof ImageOptimizerInterface) {
+            if ( ! $adapter instanceof ImageOptimiserInterface) {
                 throw new InvalidArgumentException(
-                    sprintf('Adapter configured does not have the %s interface.', ImageOptimizerInterface::class)
+                    sprintf('Adapter configured does not have the %s interface.', ImageOptimiserInterface::class)
                 );
             }
 
@@ -40,7 +40,7 @@ class ImageOptimizerService implements ImageOptimizerInterface
      */
     public function optimize(string $imagePath)
     {
-        /** @var ImageOptimizerInterface $adapter */
+        /** @var ImageOptimiserInterface $adapter */
         foreach ($this->getAdapters() as $adapter) {
             try {
                 $adapter->optimize($imagePath);
@@ -51,14 +51,14 @@ class ImageOptimizerService implements ImageOptimizerInterface
     }
 
     /**
-     * @return array|ImageOptimizerInterface
+     * @return array|ImageOptimiserInterface
      */
     public function getAdapters()
     {
         return $this->adapters;
     }
 
-    public function addAdapter(ImageOptimizerInterface $adapter)
+    public function addAdapter(ImageOptimiserInterface $adapter)
     {
         $this->adapters[] = $adapter;
     }

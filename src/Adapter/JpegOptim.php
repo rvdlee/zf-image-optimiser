@@ -1,10 +1,10 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer\Adapter;
+namespace Rvdlee\ZfImageOptimiser\Adapter;
 
-use Rvdlee\ZfImageOptimizer\Interfaces\ImageOptimizerInterface;
+use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
 
-class JpegOptim implements ImageOptimizerInterface
+class JpegOptim implements ImageOptimiserInterface
 {
     public function optimize(string $imagePath)
     {

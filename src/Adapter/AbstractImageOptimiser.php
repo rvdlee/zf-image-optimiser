@@ -1,10 +1,10 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer\Adapter;
+namespace Rvdlee\ZfImageOptimiser\Adapter;
 
-use Rvdlee\ZfImageOptimizer\Interfaces\ImageOptimizerInterface;
+use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
 
-abstract class AbstractImageOptimizer implements ImageOptimizerInterface
+abstract class AbstractImageOptimiser implements ImageOptimiserInterface
 {
     /**
      * @var array
@@ -27,9 +27,9 @@ abstract class AbstractImageOptimizer implements ImageOptimizerInterface
     /**
      * @param array $binaryOptions
      *
-     * @return AbstractImageOptimizer
+     * @return AbstractImageOptimiser
      */
-    public function setBinaryOptions(array $binaryOptions) : AbstractImageOptimizer
+    public function setBinaryOptions(array $binaryOptions) : AbstractImageOptimiser
     {
         $this->binaryOptions = $binaryOptions;
 
@@ -47,9 +47,9 @@ abstract class AbstractImageOptimizer implements ImageOptimizerInterface
     /**
      * @param string $binaryPath
      *
-     * @return AbstractImageOptimizer
+     * @return AbstractImageOptimiser
      */
-    public function setBinaryPath(string $binaryPath) : AbstractImageOptimizer
+    public function setBinaryPath(string $binaryPath) : AbstractImageOptimiser
     {
         $this->binaryPath = $binaryPath;
 

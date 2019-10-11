@@ -1,8 +1,8 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer\Model;
+namespace Rvdlee\ZfImageOptimiser\Model;
 
-use Rvdlee\ZfImageOptimizer\Exception\InvalidArgumentException;
+use Rvdlee\ZfImageOptimiser\Exception\InvalidArgumentException;
 use SplFileInfo;
 
 class Image

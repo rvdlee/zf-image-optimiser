@@ -1,11 +1,11 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer;
+namespace Rvdlee\ZfImageOptimiser;
 
-use Rvdlee\ZfImageOptimizer\Adapter\Gifsicle;
-use Rvdlee\ZfImageOptimizer\Adapter\JpegOptim;
-use Rvdlee\ZfImageOptimizer\Adapter\Optipng;
-use Rvdlee\ZfImageOptimizer\Adapter\Pngquant2;
+use Rvdlee\ZfImageOptimiser\Adapter\Gifsicle;
+use Rvdlee\ZfImageOptimiser\Adapter\JpegOptim;
+use Rvdlee\ZfImageOptimiser\Adapter\Optipng;
+use Rvdlee\ZfImageOptimiser\Adapter\Pngquant2;
 use Zend\Validator\File\Extension;
 use Zend\Validator\File\IsImage;
 use Zend\Validator\File\MimeType;

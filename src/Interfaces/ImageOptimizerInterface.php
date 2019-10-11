@@ -1,8 +1,8 @@
 <?php
 
-namespace Rvdlee\ZfImageOptimizer\Interfaces;
+namespace Rvdlee\ZfImageOptimiser\Interfaces;
 
-interface ImageOptimizerInterface
+interface ImageOptimiserInterface
 {
     /**
      * This will optimize the image
