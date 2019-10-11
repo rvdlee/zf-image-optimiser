@@ -1,0 +1,101 @@
+<?php
+
+namespace Rvdlee\ZfImageOptimizer;
+
+use Rvdlee\ZfImageOptimizer\Adapter\Gifsicle;
+use Rvdlee\ZfImageOptimizer\Adapter\JpegOptim;
+use Rvdlee\ZfImageOptimizer\Adapter\Optipng;
+use Rvdlee\ZfImageOptimizer\Adapter\Pngquant2;
+use Zend\Validator\File\Extension;
+use Zend\Validator\File\IsImage;
+use Zend\Validator\File\MimeType;
+
+return [
+    'rvdlee' => [
+        'zf-image-optimizer' => [
+            Gifsicle::class => [
+                'binary-options' => [],
+                'validator-chain' => [
+                    ['name' => IsImage::class],
+                    [
+                        'name'    => Extension::class,
+                        'options' => [
+                            'case'       => false,
+                            'extensions' => 'gif',
+                        ],
+                    ],
+                    [
+                        'name'    => MimeType::class,
+                        'options' => [
+                            'mimeType' => ['image/gif'],
+                        ],
+                    ],
+                ],
+            ],
+            JpegOptim::class => [
+                'binary-options' => [],
+                'validator-chain' => [
+                    ['name' => IsImage::class],
+                    [
+                        'name'    => Extension::class,
+                        'options' => [
+                            'case'       => false,
+                            'extensions' => 'jpg',
+                        ],
+                    ],
+                    [
+                        'name'    => MimeType::class,
+                        'options' => [
+                            'mimeType' => ['image/jpeg'],
+                        ],
+                    ],
+                ],
+            ],
+            Optipng::class => [
+                'binary-options' => [],
+                'validator-chain' => [
+                    ['name' => IsImage::class],
+                    [
+                        'name'    => Extension::class,
+                        'options' => [
+                            'case'       => false,
+                            'extensions' => 'png',
+                        ],
+                    ],
+                    [
+                        'name'    => MimeType::class,
+                        'options' => [
+                            'mimeType' => ['image/png'],
+                        ],
+                    ],
+                ],
+            ],
+            Pngquant2::class => [
+                'binary-options' => [],
+                'validator-chain' => [
+                    ['name' => IsImage::class],
+                    [
+                        'name'    => Extension::class,
+                        'options' => [
+                            'case'       => false,
+                            'extensions' => 'png',
+                        ],
+                    ],
+                    [
+                        'name'    => MimeType::class,
+                        'options' => [
+                            'mimeType' => ['image/png'],
+                        ],
+                    ],
+                ],
+            ],
+
+            'enabled' => [
+                Gifsicle::class,
+                JpegOptim::class,
+                Optipng::class,
+                Pngquant2::class,
+            ]
+        ]
+    ]
+];
