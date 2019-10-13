@@ -11,9 +11,9 @@ interface ImageOptimiserInterface
      *
      * @param Image $image
      *
-     * @return mixed
+     * @return string
      */
-    public function optimize(Image $image);
+    public function optimizeCommand(Image $image) : string;
 
     /**
      * This function will run the validation chain to verify

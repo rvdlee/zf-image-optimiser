@@ -10,9 +10,4 @@ class JpegOptim extends AbstractImageOptimiser
      * @var string
      */
     protected $binaryPath = 'jpegoptim';
-
-    public function optimize(Image $image)
-    {
-        // TODO: Implement optimize() method.
-    }
 }

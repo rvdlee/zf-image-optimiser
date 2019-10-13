@@ -89,7 +89,6 @@ return [
                     ],
                 ],
             ],
-
             'enabled' => [
                 Gifsicle::class,
                 JpegOptim::class,

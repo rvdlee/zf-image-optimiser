@@ -6,6 +6,7 @@ use Exception;
 use Rvdlee\ZfImageOptimiser\Exception\InvalidArgumentException;
 use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
 use Rvdlee\ZfImageOptimiser\Model\Image;
+use Zend\Log\LoggerInterface;
 
 class ImageOptimiserService
 {
@@ -15,12 +16,20 @@ class ImageOptimiserService
     protected $adapters;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * @param array|ImageOptimiserInterface $adapters
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(array $adapters)
+    public function __construct(array $adapters, LoggerInterface $logger)
     {
+        $this->setLogger($logger);
+        $this->getLogger()->info('Constucting ImageOptimiserService');
+
         /** @var ImageOptimiserInterface $adapter */
         foreach ($adapters as $adapter) {
             if ( ! $adapter instanceof ImageOptimiserInterface) {
@@ -29,6 +38,7 @@ class ImageOptimiserService
                 );
             }
 
+            $this->getLogger()->debug(sprintf('Added %s to the ImageOptimiserService.', get_class($adapter)));
             $this->addAdapter($adapter);
         }
     }
@@ -45,12 +55,17 @@ class ImageOptimiserService
         foreach ($this->getAdapters() as $adapter) {
             try {
                 if ($adapter->canHandle($imagePath)) {
-                    $command = $adapter->optimize(new Image($imagePath));
+                    /** @var string $command */
+                    $command = $adapter->optimizeCommand(new Image($imagePath));
 
-                    $output = shell_exec($command);
+                    $this->getLogger()->info(sprintf('Handling %s via %s', $imagePath, get_class($adapter)));
+                    $output = shell_exec(sprintf('%s 2>&1', $command));
+                    $this->getLogger()->info($output);
                 }
             } catch (Exception $exception) {
-                throw $exception;
+                $this->getLogger()->err(
+                    sprintf('Exception when handling %s to via %s', $imagePath, get_class($adapter))
+                );
             }
         }
     }
@@ -66,5 +81,25 @@ class ImageOptimiserService
     public function addAdapter(ImageOptimiserInterface $adapter)
     {
         $this->adapters[] = $adapter;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public function getLogger() : LoggerInterface
+    {
+        return $this->logger;
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     *
+     * @return ImageOptimiserService
+     */
+    public function setLogger(LoggerInterface $logger) : ImageOptimiserService
+    {
+        $this->logger = $logger;
+
+        return $this;
     }
 }

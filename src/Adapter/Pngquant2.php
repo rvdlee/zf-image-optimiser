@@ -11,8 +11,13 @@ class Pngquant2 extends AbstractImageOptimiser
      */
     protected $binaryPath = 'pngquant';
 
-    public function optimize(Image $image)
+    public function optimizeCommand(Image $image) : string
     {
-        return sprintf('%s %s %s', $this->getBinaryPath(), implode(' ', $this->getBinaryOptions()), $image->getPath());
+        /** @var array $binaryOptions */
+        $binaryOptions = $this->getBinaryOptions();
+        $binaryOptions[] = sprintf('-o %s', $image->getPath());
+        $this->setBinaryOptions($binaryOptions);
+
+        return parent::optimizeCommand($image);
     }
 }

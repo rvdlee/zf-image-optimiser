@@ -4,7 +4,6 @@ namespace Rvdlee\ZfImageOptimiser\Filter;
 
 use Rvdlee\ZfImageOptimiser\Service\ImageOptimiserService;
 use Zend\Filter\AbstractFilter;
-use Zend\Filter\Exception;
 
 class ImageOptimiser extends AbstractFilter
 {

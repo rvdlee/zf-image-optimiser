@@ -6,6 +6,11 @@ Configuration over convention. This package supports Form InputFilters, Commandl
 
 ## Usage
 
+```
+# Want to get the log entries?
+$this->getLogger()->getWriters()->toArray()
+```
+
 ## InputFilters
 
 The standard file handling is done through InputFilters, the InputFilter in this package allows you to save or overwrite the uploaded image. You can chain adapters together for maximum effect.

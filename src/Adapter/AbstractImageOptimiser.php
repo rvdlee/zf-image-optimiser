@@ -3,6 +3,7 @@
 namespace Rvdlee\ZfImageOptimiser\Adapter;
 
 use Rvdlee\ZfImageOptimiser\Interfaces\ImageOptimiserInterface;
+use Rvdlee\ZfImageOptimiser\Model\Image;
 use Zend\Validator\ValidatorChain;
 
 abstract class AbstractImageOptimiser implements ImageOptimiserInterface
@@ -32,6 +33,11 @@ abstract class AbstractImageOptimiser implements ImageOptimiserInterface
     {
         $this->setBinaryOptions($binaryOptions)
             ->setValidatorChain($validatorChain);
+    }
+
+    public function optimizeCommand(Image $image) : string
+    {
+        return sprintf('%s %s %s', $this->getBinaryPath(), implode(' ', $this->getBinaryOptions()), $image->getPath());
     }
 
     /**

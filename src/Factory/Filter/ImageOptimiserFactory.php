@@ -13,6 +13,7 @@ class ImageOptimiserFactory implements FactoryInterface
     {
         /** @var ImageOptimiserService $imageOptimiserService */
         $imageOptimiserService = $container->get(ImageOptimiserService::class);
+
         return new ImageOptimiser($imageOptimiserService);
     }
 }
