@@ -1,14 +1,26 @@
 # ZF3 Package to optimize images
 
-This package aims to do very much the same thing as spatie. However, this package will a few ideas and combine them the Zend way.
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/rvdlee/zf-image-optimiser.svg?style=flat-square)](https://packagist.org/packages/rvdlee/zf-image-optimiser)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rvdlee/zf-image-optimiser/badges/quality-score.png)](https://scrutinizer-ci.com/g/rvdlee/zf-image-optimiser)
+[![Total Downloads](https://img.shields.io/packagist/dt/rvdlee/zf-image-optimiser.svg?style=flat-square)](https://packagist.org/packages/rvdlee/zf-image-optimiser)
 
-Configuration over convention. This package supports Form InputFilters, Commandline, Adapters for easy expansion and a good old service for easy implementation in any DI class.
+This is a image optimiser package. I've written this with ZF3 in mind, everything is written with configuration over convention in mind. Highly extendible and easy in use. Currently supporting Gifsicle, JpegOptim, Optipng and pngquant2.
+
+This package provides the following ways of converting:
+
+* Through the commandline 
+* InputFilter
+* Sevice
 
 ## Usage
 
+To get started you need to configure your validation chain. The validation chain acts as a validator for the files that are due to processing. There is a [provided config dist file](https://github.com/rvdlee/zf-image-optimiser/blob/master/config/local.config.php.dist) with all the configuration you need to get started. 
+
+The validator chain will require the standard Zend
+
+
 ```
-# Want to get the log entries?
-$this->getLogger()->getWriters()->toArray()
+
 ```
 
 ## InputFilters
@@ -17,17 +29,51 @@ The standard file handling is done through InputFilters, the InputFilter in this
 
 ## Commandline
 
+The commandline controller is nothing more than a wrapper for the service calling `optimise()`. You can access this controller by running the following command from CLI.
+
 ```bash
-php ./public/index.php image-optimise --input ./public/images/sample.png --output ./public/images/sample-optimised.png 
+php ./public/index.php image-optimiser --image='./public/images/test.png' 
 ```
 
 ## Service
 
-You can use dependacy injection to get this service anywhere in your application. This way you can use it in any way you see fit.
+The service class allows you to apply this package virtually everywhere in your ZF3 application. We support logging and catch all output given from the programs doing the optimalisation.
+
+The service by default gets decked out with a default `Zend\Log\Writer\Mock` writer. You can still access the logs in this writer. You can override this when building the service. Allowing you to provide a DB, Logfile or Stdout writer.
 
 ```php
-/** @var ImageOptimiserService $imageOptimiserService */
-$imageOptimiserService = $container->get(ImageOptimiserService::class);
+class SomeFactory implements FactoryInterface
+{
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /** @var ImageOptimiserService $imageOptimiserService */
+        $imageOptimiserService = $container->get(ImageOptimiserService::class);
+
+        # or... provide your own LoggerInterface
+
+        /** @var Logger $logger */
+        $logger = $container->get(Logger::class);
+        /** @var Stream $writer */
+        $logger->addWriter(new Stream('php://output'));
+        /** @var ImageOptimiserService $imageOptimiserService */
+        $imageOptimiserService = $container->build(ImageOptimiserService::class, ['logger' => $logger]);
+
+        # ... other factory stuff
+    }
+}
+```
+
+If you want to access the logs in the Mock writer, just use the following snippet. Locate the Mock writer and then look at the events.
+
+```php
+/** @var array|WriterInterface[] $writers */
+$writers = $imageOptimiserService->getLogger()->getWriters()->toArray();
+/** @var Zend\Log\Writer\Mock $mockWriter */
+$mockWriter = $writers[0];
+/** @var array $events */
+$events = $mockWriter->events;
 ```
 
 ## FAQs
+
+There are none at the moment.
