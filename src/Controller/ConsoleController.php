@@ -27,9 +27,6 @@ class ConsoleController extends AbstractActionController
     {
         /** @var string $fromYear */
         $image = $this->params()->fromRoute('image');
-
-        echo $image;
-
         if ($image === null) {
             die('You need the --image param.');
         }
