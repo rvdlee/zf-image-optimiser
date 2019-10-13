@@ -2,8 +2,6 @@
 
 namespace Rvdlee\ZfImageOptimiser\Adapter;
 
-use Rvdlee\ZfImageOptimiser\Model\Image;
-
 class Optipng extends AbstractImageOptimiser
 {
     /**
