@@ -18,16 +18,116 @@ This package provides the following ways of converting:
 
 To get started you need to configure your validation chain. The validation chain acts as a validator for the files that are due to processing. There is a [provided config dist file](https://github.com/rvdlee/zf-image-optimiser/blob/master/config/local.config.php.dist) with all the configuration you need to get started. 
 
-The validator chain will require the standard Zend
+The validator chain will require the standard zend validators to verify if the uploaded file is suitable to be handled by these adapters. It will look like something like this.
 
+```php
+# ... config use statements
 
-```
-
+return [
+    'rvdlee' => [
+        'zf-image-optimiser' => [
+            # ... Other adapters
+            Pngquant2::class => [
+                'binary-options'  => [
+                    '--verbose',
+                    '--force',
+                    '--strip',
+                    '--speed 1',
+                    '--quality=75-100',
+                ],
+                'validator-chain' => [
+                    ['name' => IsImage::class],
+                    [
+                        'name'    => Extension::class,
+                        'options' => [
+                            'case'       => false,
+                            'extensions' => 'png',
+                        ],
+                    ],
+                    [
+                        'name'    => MimeType::class,
+                        'options' => [
+                            'mimeType' => ['image/png'],
+                        ],
+                    ],
+                ],
+            ],
+            'enabled'        => [
+                # ... Other adapters
+                Pngquant2::class,
+            ],
+        ],
+    ],
+];
 ```
 
 ## InputFilters
 
-The standard file handling is done through InputFilters in Zend, the InputFilter in this package allows you to save or overwrite the uploaded image.
+The standard file handling through forms is done with InputFilters in Zend, the InputFilter in this package allows you to save or overwrite the uploaded image. By default behaviour it will overwrite to be more inline with other file handling filters.
+
+Here a example of an InputFilter in a FormInputFilter file using the ImageOptimiser filter to reduce filesize.
+
+```php
+# ... Other InputFilters
+
+$this->add(
+    [
+        'type'       => FileInput::class,
+        'name'       => 'image',
+        'required'   => false,
+        'filters'    => [
+            [
+                'name'    => RenameUpload::class,
+                'options' => [
+                    'target'             => <my_target_path>,
+                    'useUploadName'      => true,
+                    'useUploadExtension' => true,
+                    'overwrite'          => false,
+                    'randomize'          => false,
+                ],
+            ],
+            ['name' => ImageOptimiser::class],
+        ],
+        'validators' => [
+            ['name' => IsImage::class],
+            [
+                'name'    => FilesSize::class,
+                'options' => [
+                    'min' => '4kB',
+                    'max' => '8MB',
+                ],
+            ],
+            [
+                'name'    => Extension::class,
+                'options' => [
+                    'case'       => false,
+                    'extensions' => 'jpg,png',
+                ],
+            ],
+            [
+                'name'    => MimeType::class,
+                'options' => [
+                    'mimeType' => [
+                        'image/jpeg',
+                        'image/png',
+                    ],
+                ],
+            ],
+            [
+                'name'    => ImageSize::class,
+                'options' => [
+                    'minWidth'  => 128,
+                    'minHeight' => 128,
+                    'maxWidth'  => 4096,
+                    'maxHeight' => 4096,
+                ],
+            ],
+        ],
+    ]
+);
+
+# ... Other InputFilters
+```
 
 ## Commandline
 

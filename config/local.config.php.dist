@@ -13,8 +13,8 @@ use Zend\Validator\File\MimeType;
 return [
     'rvdlee' => [
         'zf-image-optimiser' => [
-            Gifsicle::class => [
-                'binary-options' => [],
+            Gifsicle::class  => [
+                'binary-options'  => [],
                 'validator-chain' => [
                     ['name' => IsImage::class],
                     [
@@ -33,7 +33,7 @@ return [
                 ],
             ],
             JpegOptim::class => [
-                'binary-options' => [],
+                'binary-options'  => [],
                 'validator-chain' => [
                     ['name' => IsImage::class],
                     [
@@ -51,8 +51,11 @@ return [
                     ],
                 ],
             ],
-            Optipng::class => [
-                'binary-options' => [],
+            Optipng::class   => [
+                'binary-options'  => [
+                    '-o1',
+                    '-v',
+                ],
                 'validator-chain' => [
                     ['name' => IsImage::class],
                     [
@@ -71,7 +74,13 @@ return [
                 ],
             ],
             Pngquant2::class => [
-                'binary-options' => [],
+                'binary-options'  => [
+                    '--verbose',
+                    '--force',
+                    '--strip',
+                    '--speed 1',
+                    '--quality=75-100',
+                ],
                 'validator-chain' => [
                     ['name' => IsImage::class],
                     [
@@ -89,12 +98,12 @@ return [
                     ],
                 ],
             ],
-            'enabled' => [
+            'enabled'        => [
                 Gifsicle::class,
                 JpegOptim::class,
                 Optipng::class,
                 Pngquant2::class,
-            ]
-        ]
-    ]
+            ],
+        ],
+    ],
 ];
