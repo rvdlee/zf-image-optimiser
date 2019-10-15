@@ -18,7 +18,7 @@ This package provides the following ways of converting:
 
 To get started you need to configure your validation chain. The validation chain acts as a validator for the files that are due to processing. There is a [provided config dist file](https://github.com/rvdlee/zf-image-optimiser/blob/master/config/local.config.php.dist) with all the configuration you need to get started. 
 
-The validator chain will require the standard zend validators to verify if the uploaded file is suitable to be handled by these adapters. It will look like something like this.
+The validator chain will require the standard zend validators to verify if the file is suitable to be handled by these adapters. It will look like something like this.
 
 ```php
 # ... config use statements
