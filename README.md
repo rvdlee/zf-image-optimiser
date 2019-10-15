@@ -3,6 +3,8 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rvdlee/zf-image-optimiser.svg?style=flat-square)](https://packagist.org/packages/rvdlee/zf-image-optimiser)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/rvdlee/zf-image-optimiser/badges/quality-score.png)](https://scrutinizer-ci.com/g/rvdlee/zf-image-optimiser)
 [![Total Downloads](https://img.shields.io/packagist/dt/rvdlee/zf-image-optimiser.svg?style=flat-square)](https://packagist.org/packages/rvdlee/zf-image-optimiser)
+[![GitHub license](https://img.shields.io/github/license/EpicSoftworks/pelican-prismjs.svg)](https://github.com/EpicSoftworks/pelican-prismjs/blob/master/LICENSE)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/epicsoftworks)
 
 This is a image optimiser package. I've written this with ZF3 in mind, everything is written with configuration over convention in mind. Highly extendible and easy in use. Currently supporting Gifsicle, JpegOptim, Optipng and pngquant2.
 
@@ -25,7 +27,7 @@ The validator chain will require the standard Zend
 
 ## InputFilters
 
-The standard file handling is done through InputFilters, the InputFilter in this package allows you to save or overwrite the uploaded image. You can chain adapters together for maximum effect.
+The standard file handling is done through InputFilters in Zend, the InputFilter in this package allows you to save or overwrite the uploaded image.
 
 ## Commandline
 

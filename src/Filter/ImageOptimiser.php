@@ -2,6 +2,7 @@
 
 namespace Rvdlee\ZfImageOptimiser\Filter;
 
+use Exception;
 use Rvdlee\ZfImageOptimiser\Service\ImageOptimiserService;
 use Zend\Filter\AbstractFilter;
 
@@ -19,6 +20,13 @@ class ImageOptimiser extends AbstractFilter
 
     public function filter($value)
     {
+        try {
+            $this->getImageOptimiserService()->optimize($value['tmp_name']);
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+
+        return $value;
     }
 
     /**

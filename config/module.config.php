@@ -12,7 +12,9 @@ use Rvdlee\ZfImageOptimiser\Factory\Adapter\JpegOptimFactory;
 use Rvdlee\ZfImageOptimiser\Factory\Adapter\OptipngFactory;
 use Rvdlee\ZfImageOptimiser\Factory\Adapter\Pngquant2Factory;
 use Rvdlee\ZfImageOptimiser\Factory\Controller\ConsoleControllerFactory;
+use Rvdlee\ZfImageOptimiser\Factory\Filter\ImageOptimiserFactory;
 use Rvdlee\ZfImageOptimiser\Factory\Service\ImageOptimiserServiceFactory;
+use Rvdlee\ZfImageOptimiser\Filter\ImageOptimiser;
 use Rvdlee\ZfImageOptimiser\Service\ImageOptimiserService;
 
 return [
@@ -44,6 +46,11 @@ return [
             JpegOptim::class => JpegOptimFactory::class,
             Optipng::class   => OptipngFactory::class,
             Pngquant2::class => Pngquant2Factory::class,
+        ],
+    ],
+    'filters'   => [
+        'factories' => [
+            ImageOptimiser::class => ImageOptimiserFactory::class,
         ],
     ],
 ];
